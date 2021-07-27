@@ -1,7 +1,7 @@
-const { statSync, existsSync } = require('fs');
-const { extname } = require('path');
+import { statSync, existsSync } from 'fs';
+import { extname } from 'path';
 
-export class File {
+export default class File {
 	static IsValidPath(path) {
 		const validPath = existsSync(path);
 

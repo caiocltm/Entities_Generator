@@ -1,27 +1,32 @@
 const { command } = require('commander');
 const { Prompt } = require('../ui/index.js');
 
-export const GenerateEntityConfigCommand = () =>
-	command('generate_entity_config')
-		.name('generate_entity_config')
-		.description('Generate entity configuration file')
-		.action(async () => {
-			const initialCharge = new InitialCharge();
-			const prompt = new Prompt();
+export default class GenerateEntityConfigCommand {
+	constructor() {
+		parse(process.argv);
+	}
 
-			const { domain } = await prompt.getDomain(initialCharge.availableDomains());
+	execute() {
+		command('generate_entity_config')
+			.name('generate_entity_config')
+			.description('Generate entity configuration file')
+			.action(async () => {
+				const initialCharge = new InitialCharge();
+				const prompt = new Prompt();
 
-			const { path } = await prompt.getPath();
+				const { domain } = await prompt.getDomain(initialCharge.availableDomains());
 
-			const { entity } = await prompt.getEntity();
+				const { path } = await prompt.getPath();
 
-			const { offset } = await prompt.getOffset();
+				const { entity } = await prompt.getEntity();
 
-			const { separator } = await prompt.getSeparator();
+				const { offset } = await prompt.getOffset();
 
-			await initialCharge.execute({ path, entity, offset, separator, domain });
+				const { separator } = await prompt.getSeparator();
 
-			process.exit(0);
-		});
+				await initialCharge.execute({ path, entity, offset, separator, domain });
 
-parse(process.argv);
+				process.exit(0);
+			});
+	}
+}

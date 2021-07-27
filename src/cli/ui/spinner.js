@@ -1,6 +1,6 @@
-const Ora = require('ora');
+import * as Ora from 'ora';
 
-export class Spinner {
+export default class Spinner {
 	#spinner;
 
 	constructor() {

@@ -1,15 +1,27 @@
 #!/usr/bin/env node
-const App = require('../package.json');
-const { name, version, description, usage } = require('commander');
-const { bgBlue, blueBright } = require('chalk');
-const { UIBanner } = require('./ui/index.js');
-const { GenerateEntityCommand, GenerateEntityConfigCommand } = require('./commands/index.js');
+import App from '../package.json';
+import { name, version, description, usage } from 'commander';
+import { bgBlue, blueBright } from 'chalk';
+import { UIBanner } from './ui/index.js';
+import { GenerateEntityCommand, GenerateEntityConfigCommand } from './commands/index.js';
 
-name(bgBlue('nav'));
-version(bgBlue(App.version));
-description(blueBright(UIBanner));
-usage(bgBlue('<command>'));
+export default class CLI {
+	#generateEntityCommand;
+	#generateEntityConfigCommand;
 
-// CLI Commands initialization
-GenerateEntityCommand();
-GenerateEntityConfigCommand();
+	constructor() {
+		name(bgBlue('eg'));
+		version(bgBlue(App.version));
+		description(blueBright(UIBanner));
+		usage(bgBlue('<command>'));
+
+		// CLI Commands initialization
+		this.#generateEntityCommand = new GenerateEntityCommand();
+		this.#generateEntityConfigCommand = new GenerateEntityConfigCommand();
+	}
+
+	execute() {
+		this.#generateEntityCommand.execute();
+		this.#generateEntityConfigCommand.execute();
+	}
+}

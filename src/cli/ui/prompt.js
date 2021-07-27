@@ -1,7 +1,7 @@
-const prompt = require('inquirer');
-const { File } = require('../../services/file.service.js');
+import prompt from 'inquirer';
+import { File } from '../../services/file.service.js';
 
-export class Prompt {
+export default class Prompt {
 	getDomain(availableDomains) {
 		return prompt([
 			{
