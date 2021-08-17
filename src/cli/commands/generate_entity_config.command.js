@@ -1,32 +1,23 @@
-const { command } = require('commander');
-const { Prompt } = require('../ui/index.js');
-
 export default class GenerateEntityConfigCommand {
-	constructor() {
-		parse(process.argv);
+	#CLI;
+
+	constructor(CLI) {
+		this.#CLI = CLI;
 	}
 
 	execute() {
-		command('generate_entity_config')
+		this.#CLI
+			.command('generate_entity_config')
 			.name('generate_entity_config')
 			.description('Generate entity configuration file')
-			.action(async () => {
-				const initialCharge = new InitialCharge();
-				const prompt = new Prompt();
-
-				const { domain } = await prompt.getDomain(initialCharge.availableDomains());
-
-				const { path } = await prompt.getPath();
-
-				const { entity } = await prompt.getEntity();
-
-				const { offset } = await prompt.getOffset();
-
-				const { separator } = await prompt.getSeparator();
-
-				await initialCharge.execute({ path, entity, offset, separator, domain });
-
-				process.exit(0);
+			.action(() => {
+				console.log('AAAAAAAAAAAAAAAAA generate_entity_config');
 			});
+
+		this.#parse();
+	}
+
+	#parse() {
+		this.#CLI.parse(process.argv);
 	}
 }

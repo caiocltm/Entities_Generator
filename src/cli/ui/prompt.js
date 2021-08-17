@@ -1,5 +1,5 @@
 import prompt from 'inquirer';
-import { File } from '../../services/file.service.js';
+import File from '../../services/file.service.js';
 
 export default class Prompt {
 	getDomain(availableDomains) {

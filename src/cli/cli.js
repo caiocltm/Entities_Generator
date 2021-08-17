@@ -1,27 +1,47 @@
-#!/usr/bin/env node
-import App from '../package.json';
-import { name, version, description, usage } from 'commander';
-import { bgBlue, blueBright } from 'chalk';
-import { UIBanner } from './ui/index.js';
-import { GenerateEntityCommand, GenerateEntityConfigCommand } from './commands/index.js';
+// CLI Commander
+import { Command } from 'commander';
+// CLI UI
+import chalk from 'chalk';
+const { bgBlackBright, greenBright } = chalk;
+import Banner from './ui/banner.js';
+// CLI Commands
+import GenerateEntityCommand from './commands/generate_entity.command.js';
+import GenerateEntityConfigCommand from './commands/generate_entity_config.command.js';
 
 export default class CLI {
+	#CLI;
 	#generateEntityCommand;
 	#generateEntityConfigCommand;
 
 	constructor() {
-		name(bgBlue('eg'));
-		version(bgBlue(App.version));
-		description(blueBright(UIBanner));
-		usage(bgBlue('<command>'));
-
-		// CLI Commands initialization
-		this.#generateEntityCommand = new GenerateEntityCommand();
-		this.#generateEntityConfigCommand = new GenerateEntityConfigCommand();
+		this.#CLI = new Command();
+		this.#generateEntityCommand = null;
+		this.#generateEntityConfigCommand = null;
 	}
 
-	execute() {
-		this.#generateEntityCommand.execute();
-		this.#generateEntityConfigCommand.execute();
+	setUI() {
+		this.#CLI.name(bgBlackBright('entgen'));
+		this.#CLI.version('0.0.1');
+		this.#CLI.description(greenBright(Banner));
+		this.#CLI.usage(bgBlackBright('<command>'));
+
+		return this;
+	}
+
+	enableGenerateEntityCommand() {
+		this.#generateEntityCommand = new GenerateEntityCommand(this.#CLI);
+
+		return this;
+	}
+
+	enableGenerateEntityConfigCommand() {
+		this.#generateEntityConfigCommand = new GenerateEntityConfigCommand(this.#CLI);
+
+		return this;
+	}
+
+	build() {
+		this.#generateEntityConfigCommand && this.#generateEntityConfigCommand.execute();
+		this.#generateEntityCommand && this.#generateEntityCommand.execute();
 	}
 }

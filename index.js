@@ -1,5 +1,6 @@
-import { CLI } from './src/cli/cli';
+#!/usr/bin/env node
+import CLI from './src/cli/cli.js';
 
 const cli = new CLI();
 
-cli.execute();
+cli.setUI().enableGenerateEntityCommand().enableGenerateEntityConfigCommand().build();

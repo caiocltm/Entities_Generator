@@ -5,7 +5,7 @@
 	"execMap": {
 		"js": "node"
 	},
-	"watch": ["src/"],
+	"watch": ["./", "src/"],
 	"env": {
 		"NODE_ENV": "development"
 	},

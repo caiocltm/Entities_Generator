@@ -1,4 +1,4 @@
-export default UIBanner = `
+export default `
                                                                              
                                                                              
 ███████╗███╗   ██╗████████╗██╗████████╗██╗███████╗███████╗                   
